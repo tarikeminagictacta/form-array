@@ -1,0 +1,43 @@
+<app-form-title title="Persons"></app-form-title>
+<div [formGroup]="form">
+  <div formArrayName="persons" *ngFor="let item of personsArray.controls; let i = index">
+    <div [formGroupName]="i">
+      <div>
+        <label>
+          Name:
+          <input type="text" formControlName="name" />
+        </label>
+      </div>
+      <div>
+        <label>
+          Last name:
+          <input type="text" formControlName="lastName" />
+        </label>
+      </div>
+      <div>
+        <label>
+          Valid:
+          <input type="checkbox" formControlName="isValid" />
+        </label>
+      </div>
+      <div>
+        <button (click)="removePerson(i)">Remove</button>
+      </div>
+      <div *ngIf="personsArray.errors">
+        <div *ngIf="personsArray.errors.minlength">You need at least 2 answers</div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+<br />
+<div>
+  <button (click)="addAnotherPerson()">Add Person</button>
+</div>
+<div>
+  <button (click)="addNamedPerson()">Add Named Person</button>
+</div>
+<div>
+  <pre>{{ formStatus | json }}</pre>
+</div>
+<div>{{ personsArray.errors | json }}</div>
